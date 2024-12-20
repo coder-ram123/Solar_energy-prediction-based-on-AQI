@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AQI and Solar Generation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container {
+            width: 100%;
+            max-width: 500px;
+            margin: 20px auto;
+        }
+        canvas {
+            width: 100% !important;
+            height: auto !important;
+        }
+        .flex-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+        .panel {
+            flex: 1;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            min-width: 300px;
+        }
+        h3 {
+            margin-bottom: 15px;
+        }
+        table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Air Quality Index (AQI) and Solar Energy in {{ context.city }}, {{ context.state }}</h1>
+        </div>
+
+        <div class="flex-container">
+           
+            <div class="left-panel">
+                <h3>Pollutant Levels</h3>
+                <table>
+                    <tr><th>Pollutant</th><th>Concentration</th></tr>
+                    <tr><td>CO</td><td>{{ context.CO }}</td></tr>
+                    <tr><td>NO2</td><td>{{ context.NO2 }}</td></tr>
+                    <tr><td>OZONE</td><td>{{ context.OZONE }}</td></tr>
+                    <tr><td>PM10</td><td>{{ context.PM10 }}</td></tr>
+                    <tr><td>PM2.5</td><td>{{ context.PM25 }}</td></tr>
+                    <tr><td>SO2</td><td>{{ context.SO2 }}</td></tr>
+                </table>
+
+                <h3>Pollutant Contributions to Solar Reduction</h3>
+                <table>
+                    <tr>
+                        <th>Pollutant</th>
+                        <th>Contribution (%)</th>
+                    </tr>
+                    <tr><td>CO</td><td>{{ context.contributions.CO | round(2) }}</td></tr>
+                    <tr><td>NO2</td><td>{{ context.contributions.NO2 | round(2) }}</td></tr>
+                    <tr><td>OZONE</td><td>{{ context.contributions.OZONE | round(2) }}</td></tr>
+                    <tr><td>PM10</td><td>{{ context.contributions.PM10 | round(2) }}</td></tr>
+                    <tr><td>PM2.5</td><td>{{ context.contributions.PM25 | round(2) }}</td></tr>
+                    <tr><td>SO2</td><td>{{ context.contributions.SO2 | round(2) }}</td></tr>
+                </table>
+
+                <h3>AQI Information</h3>
+                <table>
+                    <tr><th>AQI Level</th><th>Category</th><th>Last Updated</th></tr>
+                    <tr><td>{{ context.AQI }}</td><td>{{ context.category }}</td><td>{{ context.updated_at }}</td></tr>
+                </table>
+            </div>
+
+            <div class="right-panel">
+                <h3>Estimated Solar Energy Generation</h3>
+                <table>
+                    <tr><th>Estimated Solar Irradiance</th><th>Units</th></tr>
+                    <tr><td>{{ context.solar_generation }}</td><td>W/m²</td></tr>
+                </table>
+                <p>The estimate considers pollutant concentrations and their impact on solar energy in {{ context.city }}.</p>
+
+                <div class="chart-container">
+                    <h3>Pollutant Contributions</h3>
+                    <canvas id="pollutantPieChart"></canvas>
+                </div>
+
+                <div class="chart-container">
+                    <h3>Solar Energy Generation vs AQI</h3>
+                    <canvas id="solarVsAQIChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="btn">
+            <a href="/" class="back-link">Back to Search</a>
+        </div>
+        
+    </div>
+
+    <script>
+      
+        const pollutantData = {
+            labels: ["CO", "NO2", "OZONE", "PM10", "PM2.5", "SO2"],
+            datasets: [{
+                data: [
+                    {{ context.contributions.CO | round(2) }},
+                    {{ context.contributions.NO2 | round(2) }},
+                    {{ context.contributions.OZONE | round(2) }},
+                    {{ context.contributions.PM10 | round(2) }},
+                    {{ context.contributions.PM25 | round(2) }},
+                    {{ context.contributions.SO2 | round(2) }}
+                ],
+                backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF", "#FF9F40"]
+            }]
+        };
+
+        new Chart(document.getElementById("pollutantPieChart"), {
+            type: 'pie',
+            data: pollutantData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                }
+            }
+        });
+
+        const solarVsAQIData = {
+            labels: ["Low AQI", "Moderate AQI", "High AQI"],
+            datasets: [{
+                label: 'Solar Generation (W/m²)',
+                data: [950, 800, {{ context.solar_generation }}],
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                fill: true,
+                tension: 0.4
+            }]
+        };
+
+        new Chart(document.getElementById("solarVsAQIChart"), {
+            type: 'line',
+            data: solarVsAQIData,
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Solar Energy Generation (W/m²)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'AQI Levels'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

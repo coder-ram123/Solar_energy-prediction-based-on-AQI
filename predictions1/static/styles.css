@@ -1,0 +1,158 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    background: url('/static/home.jpg') no-repeat center center/cover; /* Background image */
+    background-attachment: fixed; /* Ensures background stays in place during scroll */
+}
+
+/* Header */
+header {
+    /* background: rgba(42, 84, 176, 0.9); Semi-transparent deep blue */
+    color: white;
+    padding: 15px 0;
+    /* box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); */
+}
+
+header h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Navigation */
+nav ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 10px;
+}
+
+nav ul li a {
+    color: #ffcc00; /* Bright gold */
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+    color: #ffe066; /* Lighter gold on hover */
+}
+
+/* Form Section */
+#aqiFormSection {
+    margin: 20px auto;
+    padding: 40px;
+    background: rgba(222, 249, 255, 0.671); /* Transparent white background */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    color: #486cb8; /* Matches header blue for consistency */
+    min-height: calc(100vh - 200px); /* Extend to bottom */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 500px;
+    text-align: center;
+}
+
+#aqiFormSection img {
+    width: 150px; /* Adjust size as needed */
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 20px; /* Space between the image and heading */
+    animation: rotateSun 10s linear infinite; /* Optional rotation effect */
+    position: relative; /* Allows precise positioning */
+    top: -10px; /* Adjust the vertical position */
+    left: 0; /* Centers horizontally relative to its container */
+    z-index: 1; /* Ensures it stays above the background or other elements */
+}
+
+#aqiFormSection h3 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #7a2028; /* Vibrant red for emphasis */
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+label {
+    font-weight: bold;
+    color: #2b4a8d; /* Blue for label text */
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+input[type="text"] {
+    width: 100%;
+    max-width: 400px;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 2px solid #2b4a8d;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input[type="text"]:focus {
+    border-color: #e63946; /* Red highlight on focus */
+    box-shadow: 0 0 10px rgba(230, 57, 70, 0.6);
+    outline: none;
+}
+
+button {
+    background-color: #2b4a8d; /* Deep blue for the button */
+    color: #ffffff; /* White text for contrast */
+    border: none;
+    padding: 12px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background 0.3s, transform 0.2s;
+    margin-bottom: 100px;
+}
+
+button:hover {
+    background-color: #e63946; /* Vibrant red on hover */
+    transform: scale(1.05);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 15px 0;
+    background: rgba(43, 74, 141, 0.9); /* Matches header color */
+    color: white;
+    font-size: 0.9rem;
+    margin-top: 30px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    #aqiFormSection h3 {
+        font-size: 1.5rem;
+    }
+
+    button {
+        width: 100%;
+        max-width: 400px;
+    }
+}

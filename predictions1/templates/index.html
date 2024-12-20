@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar Energy Generation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Solar Energy Generation Predictor Based On AQI</h1>
+        </div>
+    </header>
+
+    <section id="aqiFormSection">
+        <img src="https://www.pngarts.com/files/4/Sun-PNG-Image.png" alt="Sun Image">
+        <h3>Get Your Realtime Solar Generation Estimate</h3>
+        <form id="aqiForm" method="POST" action="/get_aqi">
+            <label for="city">Enter your city name:</label>
+            <input type="text" id="city" name="city" required placeholder="e.g., Pune">
+            <button type="submit">Get Estimate</button>
+        </form>
+    </section>
+   
+</body>
+</html>

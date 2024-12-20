@@ -1,0 +1,90 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #577283;
+    /* background: url('https://static.vecteezy.com/system/resources/previews/001/918/692/large_2x/cloud-sky-cartoon-background-blue-sky-with-white-clouds-flat-poster-or-flyer-cloudscape-panorama-pattern-seamless-colored-abstract-fluffy-texture-vector.jpg'); */
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+h3 {
+    color: #444;
+}
+h1{
+    color: #fff;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: #a3d265;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+table th, table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.left-panel, .right-panel {
+    padding: 20px;
+}
+
+.left-panel {
+    flex: 1;
+    background-color: rgba(243, 247, 246, 0.639);
+    border-radius: 20px;
+}
+
+.right-panel {
+    flex: 2;
+    background-color: rgba(243, 247, 246, 0.708);
+    border-radius:20px;
+}
+
+.flex-container {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.chart-container {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.back-link {
+    display: block;
+    margin-top: 30px;
+    text-align: center;
+    color: plum;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+    color: #0d370e;
+    
+}
+
