@@ -1,7 +1,7 @@
 import json
 import http.client
 
-API_KEY = "c2b6fc0518b036c6232603e65d2b84e8324f3cd5550474f71b0f830ad3991ec0"
+API_KEY = "your api key"
 
 def fetch_aqi(city):
     conn = http.client.HTTPSConnection("api.ambeedata.com")
